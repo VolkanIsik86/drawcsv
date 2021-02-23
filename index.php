@@ -82,11 +82,21 @@ function regularStep($i){
      $color="#ffe599";
      if($i!=(sizeof($step)-1)) {
          if ($step[$i]->config->processstepnr == -1) {
-             $csvheader .= ",$color,#000000," . "rhombus," . $step[$i]->config->branchrulea
-                 . $step[$i]->config->branchoperator
-                 . $step[$i]->config->branchruleb
-                 . "," . "," . ","
-                 ;
+             if($step[$i]->config->branchrulea==1 && $step[$i]->config->branchoperator=="==" && $step[$i]->config->branchruleb==1) {
+                 $csvheader .= ",$color,#000000," . "rhombus," . $step[$i]->config->branchrulea
+                     . $step[$i]->config->branchoperator
+                     . $step[$i]->config->branchruleb
+                     . "," . "," . ",";
+             }else{
+                 $csvheader .= ",$color,#000000," . "rhombus," . $step[$i]->config->branchrulea
+                     . $step[$i]->config->branchoperator
+                     . $step[$i]->config->branchruleb
+                     . "," . "," . ","
+                     ."\"" . ($i + 2) . "\"";
+             }
+
+
+
          }elseif ($step[$i]->config->branchrulea==1 && $step[$i]->config->branchoperator=="==" && $step[$i]->config->branchruleb==1){
              $csvheader .= ",$color,#000000," . "rhombus," . $step[$i]->config->branchrulea
                  . $step[$i]->config->branchoperator
