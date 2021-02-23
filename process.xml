@@ -1,358 +1,241 @@
 <?xml version="1.0"?>
-<process name="OPRET TV PAKKE">
-    <initcontent/>
+<process name="liste over forkerte TV pakke ">
+    <initcontent>tv pakke = {.instaddress::(TV Pakke).}</initcontent>
     <startscope>account</startscope>
-    <processTask name="Er der flere adresser" stepnr="1" task="process_startProcess" disabled="0">
+    <processTask name="afslut hvis ikke prim&#xE6;rkonto" stepnr="1" task="process_jumpProcess" disabled="0">
         <config>
-            <branchrulea>{.customer::hasMultiAddresses.}</branchrulea>
-            <branchoperator>==</branchoperator>
+            <branchrulea>{.account::getdefault.}</branchrulea>
+            <branchoperator>&lt;&gt;</branchoperator>
             <branchruleb>1</branchruleb>
-            <process>72</process>
-            <initvalues/>
-            <returnvalues/>
-            <breakprocess>true</breakprocess>
+            <processstepnr>-1</processstepnr>
         </config>
     </processTask>
-    <processTask name="s&#xF8;g allerede eksisterende produkter " stepnr="2" task="process_findProduct" disabled="0">
+    <processTask name="Fuldpakke Load TV" stepnr="2" task="process_findProduct" disabled="0">
         <config>
-            <productident/>
+            <productident>TVF - Fuldpakke</productident>
             <producttype>tvpacket</producttype>
-            <cpidvariable/>
-            <blactive></blactive>
+            <cpidvariable></cpidvariable>
+            <blactive>1</blactive>
             <active></active>
-            <customattribute/>
-            <instaddress/>
-            <connid/>
+            <date></date>
+            <customattribute></customattribute>
+            <instaddress></instaddress>
+            <connid></connid>
         </config>
     </processTask>
-    <processTask name="er der et produkt" stepnr="3" task="process_jumpProcess" disabled="0">
+    <processTask name="er der en tv pakke" stepnr="3" task="process_jumpProcess" disabled="0">
         <config>
             <branchrulea>{.findproduct_result.}</branchrulea>
             <branchoperator>&lt;&gt;</branchoperator>
-            <branchruleb>0</branchruleb>
+            <branchruleb>1</branchruleb>
             <processstepnr>6</processstepnr>
         </config>
     </processTask>
-    <processTask name="old inl&#xE6;s gamle filter" stepnr="4" task="process_setvariables" disabled="0">
+    <processTask name="Passer Fuldpakke" stepnr="4" task="process_jumpProcess" disabled="0">
         <config>
-            <setvariables>gfilter={.instaddress::(Tvpakke).};</setvariables>
-        </config>
-    </processTask>
-    <processTask name="N&#xE6;steskridt" stepnr="5" task="process_jumpProcess" disabled="0">
-        <config>
-            <branchrulea>1</branchrulea>
+            <branchrulea>{.instaddress::(TV Pakke).}</branchrulea>
             <branchoperator>==</branchoperator>
-            <branchruleb>1</branchruleb>
-            <processstepnr>8</processstepnr>
-        </config>
-    </processTask>
-    <processTask name="advarer om eksisterende produkt" stepnr="6" task="process_taskTicket" disabled="0">
-        <config>
-            <destinationuser>{.user::getid.}</destinationuser>
-            <destinationusergroup/>
-            <taskgroup/>
-            <customtaskcolumns/>
-            <subject/>
-            <sortorder1/>
-            <sortorder2/>
-            <sortorder3/>
-            <sortorder4/>
-            <content>Der er allerede en tilknyttet Tv pakke p&#xE5; adressen. For at kunne tilf&#xF8;je en ny Tv pakke
-                skal den nuv&#xE6;rende Tv pakke slettes. Processen afsluttes...
-            </content>
-            <deadline>;;;</deadline>
-            <deadlinerelation/>
-            <action>;;;</action>
-            <actionrelation/>
-            <scheduleactive/>
-            <scheduleusergroup/>
-            <scheduletduration/>
-            <schedulenote/>
-            <priority></priority>
-            <waitforreply></waitforreply>
-            <continueifdeadlinepassed/>
-            <ifdeadlinepassed/>
-            <showasdialog>true</showasdialog>
-        </config>
-    </processTask>
-    <processTask name="afslut" stepnr="7" task="process_jumpProcess" disabled="0">
-        <config>
-            <branchrulea>1</branchrulea>
-            <branchoperator>==</branchoperator>
-            <branchruleb>1</branchruleb>
+            <branchruleb>{.productconf::getmediationgroup.}</branchruleb>
             <processstepnr>-1</processstepnr>
         </config>
     </processTask>
-    <processTask name="Tilf&#xF8;j tv pakke(sk&#xE6;rm)" stepnr="8" task="process_taskTicket" disabled="0">
-        <config>
-            <destinationuser>{.user::getid.}</destinationuser>
-            <destinationusergroup/>
-            <taskgroup/>
-            <customtaskcolumns/>
-            <subject/>
-            <sortorder1/>
-            <sortorder2/>
-            <sortorder3/>
-            <sortorder4/>
-            <content>&lt;table&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;&#xD;
-                Nuv&#xE6;rende Tv filter:&lt;/td&gt;&lt;td&gt;{.gfilter.}&lt;/td&gt;&lt;/tr&gt;&lt;br&gt;&#xD;
-                &#xD;
-                &lt;tr&gt;&lt;td&gt;V&#xE6;lg tvpakke:&lt;/td&gt;&lt;td&gt;
-                [.tvpakkeid;object|productconf:iterateByCustomerGroupIDPM:{.customergroup::getid.}:TVPacket;;mandatory;width:140px;.]&lt;/td&gt;&lt;/tr&gt;
-                &#xD;
-                &lt;tr&gt;&lt;td&gt;Skift til: &lt;/td&gt;&lt;td&gt;[.nytvfilter;select-tvpakke;{.productconf::getmediationgroup.};mandatory;.]&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;&#xD;
-                &lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;Dato for filter-skifte: &lt;/td&gt;&lt;td&gt;[.skiftedato;text-date;;;Mandatory;.] +
-                10 dage&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;Dato for afregning: &lt;/td&gt;&lt;td colspan="4"&gt;[.afregningsdato;text-date;;;Mandatory;.][.teknikker;checkbox|yes;;;;.]
-                ved tekniker klarmelding&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;Gebyr: &lt;/td&gt;&lt;td&gt;[.gebyr;radio|:V&#xE6;lg,1:Ny
-                tilslutning,4:Gentilslutning;;;;.]&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;Tekniker bes&#xF8;g:&lt;/td&gt;&lt;td&gt;[.teknik;select|V&#xE6;lg,Ja:Ja,Nej:Nej;;mandatory;.]&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td valign="top"&gt;Notat: &lt;/td&gt;&lt;td colspan="3"&gt;[.notat;textarea;;;.]&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;/table&gt;
-            </content>
-            <deadline>;;;</deadline>
-            <deadlinerelation/>
-            <action>;;;</action>
-            <actionrelation/>
-            <scheduleactive/>
-            <scheduleusergroup/>
-            <scheduletduration/>
-            <schedulenote/>
-            <priority></priority>
-            <waitforreply></waitforreply>
-            <continueifdeadlinepassed/>
-            <ifdeadlinepassed/>
-            <showasdialog>true</showasdialog>
-        </config>
-    </processTask>
-    <processTask name="indl&#xE6;s ny tv pakke" stepnr="9" task="process_setvariables2" disabled="0">
-        <config>
-            <setvariables>tvpakke={.helpers::loadProductconf(c_tvpakkeid).};</setvariables>
-        </config>
-    </processTask>
-    <processTask name="Tilf&#xF8;j produkt" stepnr="10" task="process_addProduct" disabled="0">
-        <config>
-            <account/>
-            <productconf>{.tvpakke::getident.}</productconf>
-            <caquery/>
-            <productobjectname/>
-            <startdate>{.c_afregningsdato.}</startdate>
-            <cyclusday/>
-            <billdate/>
-            <nextbill>{.c_afregningsdato.}</nextbill>
-            <quantity/>
-            <defaultbilling>startbilling</defaultbilling>
-            <defaultprovisioning></defaultprovisioning>
-            <connid/>
-            <exclusiveidentlist/>
-            <flatrateconfig/>
-            <setcustomatt/>
-            <instaddress>adresse</instaddress>
-            <parms/>
-        </config>
-    </processTask>
-    <processTask name="inds&#xE6;t gebyr" stepnr="11" task="process_startProcess" disabled="0">
+    <processTask name="Hop til liste" stepnr="5" task="process_jumpProcess" disabled="0">
         <config>
             <branchrulea>1</branchrulea>
             <branchoperator>==</branchoperator>
             <branchruleb>1</branchruleb>
-            <process>15</process>
-            <initvalues/>
-            <returnvalues/>
-            <breakprocess/>
+            <processstepnr>24</processstepnr>
         </config>
     </processTask>
-    <processTask name="S&#xE6;t statustekst" stepnr="12" task="process_changeStatustext" disabled="0">
+    <processTask name="Mellempakke load tv" stepnr="6" task="process_findProduct" disabled="0">
         <config>
-            <statustext>&lt;b&gt;&lt;font color="green"&gt;Afventer skift til {.tvpakke::getname.} {.c_skiftedato.} &lt;/font&gt;&lt;/b&gt;</statustext>
+            <productident>TVM - Mellempakke</productident>
+            <producttype>tvpacket</producttype>
+            <cpidvariable></cpidvariable>
+            <blactive>1</blactive>
+            <active></active>
+            <date></date>
+            <customattribute></customattribute>
+            <instaddress></instaddress>
+            <connid></connid>
         </config>
     </processTask>
-    <processTask name="Behov for tekniker?" stepnr="13" task="process_jumpProcess" disabled="0">
+    <processTask name="er der en tv pakke" stepnr="7" task="process_jumpProcess" disabled="0">
         <config>
-            <branchrulea>{.c_teknik.}</branchrulea>
+            <branchrulea>{.findproduct_result.}</branchrulea>
             <branchoperator>&lt;&gt;</branchoperator>
-            <branchruleb>Ja</branchruleb>
-            <processstepnr>15</processstepnr>
+            <branchruleb>1</branchruleb>
+            <processstepnr>10</processstepnr>
         </config>
     </processTask>
-    <processTask name="opret teknikeropgave" stepnr="14" task="process_taskTicket" disabled="0">
+    <processTask name="Passer mellempakke" stepnr="8" task="process_jumpProcess" disabled="0">
         <config>
-            <destinationuser/>
-            <destinationusergroup>1</destinationusergroup>
-            <taskgroup/>
-            <customtaskcolumns/>
-            <subject>Opret tv pakke</subject>
-            <sortorder1>{.account::getaddress.}</sortorder1>
-            <sortorder2>{.account::getzipcity.}</sortorder2>
-            <sortorder3>Tekniker</sortorder3>
-            <sortorder4>{.customer::getid.}</sortorder4>
-            <content>Denne opgave skal udf&#xF8;res&lt;br /&gt;&lt;br /&gt;&#xD;
-                &#xD;
-                &lt;table border=0&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;Dato for udf&#xF8;relse: &lt;/td&gt;&lt;td&gt;[.udfortdato;text-date;;;Mandatory;.]&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;Note til udf&#xF8;relse: &lt;/td&gt;&lt;td&gt;[.note2;textarea;;;Mandatory;.]&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;Adresse: &lt;/td&gt;&lt;td&gt;{.account::getaddress.}&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &#xD;
-                &lt;tr&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;- &lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;Nuv&#xE6;rende Filter:&lt;/td&gt;&lt;td&gt;{.gfilter.}&#xD;
-                &lt;tr&gt;&lt;td&gt;Skifte til&lt;/td&gt;&lt;td&gt;&lt;b&gt;{.c_nytvfilter.}&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&#xD;
-                &lt;tr&gt;&lt;td&gt;&#xD;
-                &lt;/table&gt;
-            </content>
-            <deadline>;;;</deadline>
-            <deadlinerelation>{.c_skiftedato.}</deadlinerelation>
-            <action>;;;</action>
-            <actionrelation/>
-            <scheduleactive/>
-            <scheduleusergroup/>
-            <scheduletduration/>
-            <schedulenote/>
-            <priority></priority>
-            <waitforreply></waitforreply>
-            <continueifdeadlinepassed/>
-            <ifdeadlinepassed/>
-            <showasdialog/>
+            <branchrulea>{.instaddress::(TV Pakke).}</branchrulea>
+            <branchoperator>==</branchoperator>
+            <branchruleb>{.productconf::getmediationgroup.}</branchruleb>
+            <processstepnr>-1</processstepnr>
         </config>
     </processTask>
-    <processTask name="registrer filterskift" stepnr="15" task="process_changeInstaddress" disabled="0">
-        <config>
-            <instaddress/>
-            <setatt/>
-            <setcustomatt>Tvpakke={.c_nytvfilter.}</setcustomatt>
-        </config>
-    </processTask>
-    <processTask name="Skift s&#xE6;t dato" stepnr="16" task="process_changeProduct" disabled="0">
-        <config>
-            <product/>
-            <operation/>
-            <provoperation/>
-            <changepending/>
-            <startdate/>
-            <nextaccounting>{.c_udfortdato.}</nextaccounting>
-            <billdate/>
-            <expiresdate/>
-            <quantity/>
-            <connid/>
-            <modemapprove/>
-            <setcustomatt/>
-            <setoptionvalues/>
-            <newaccount/>
-        </config>
-    </processTask>
-    <processTask name="Notat om TV pakke" stepnr="17" task="process_noteTicket" disabled="0">
-        <config>
-            <customerobject/>
-            <instaddressobject/>
-            <ticketid/>
-            <fromuserid/>
-            <attachedfile/>
-            <attachedfile1/>
-            <attachedfile2/>
-            <attachedfile3/>
-            <notetype/>
-            <subject/>
-            <content>PC TV Pakke ID: {.tvpakke::getmediationgroup.}&lt;br&gt;&#xD;
-                &#xD;
-                PC Sub pris: {.tvpakke::getsubscriptionpricevatsum.}&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&#xD;
-                &#xD;
-                &#xD;
-                &#xD;
-                {.customer::getname.}&lt;br&gt;&#xD;
-                {.instaddress::getaddressstring.}&lt;br&gt;&#xD;
-                {.account::getemail.}&lt;br&gt;&#xD;
-                {.account::getmobile.}&lt;br&gt;&#xD;
-                Tv pakke valgt:{.tvpakke::getname.}&lt;br&gt;&#xD;
-                Dato for udf&#xF8;relse:{.c_udfortdato.}&lt;br&gt;&#xD;
-                Note til udf&#xF8;relse:{.c_note2.}&lt;br&gt;&lt;br&gt;&lt;br&gt;&#xD;
-                &#xD;
-                Adresse:{.account::getaddress.}&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&#xD;
-                &#xD;
-                Skiftet til:{.tvpakke::getname.} Filter:{.c_nytvfilter.}&lt;/b&gt;&#xD;
-                Dato for skifte:{.c_skiftedato.}&lt;br&gt;&#xD;
-                Dato for f&#xF8;rste afregning:{.c_afregningsdato.}&lt;br&gt;&#xD;
-                Skifte gebyr:{.c_gebyr.}&lt;br&gt;&#xD;
-                Notat:{.c_notat.}&lt;br&gt;&#xD;
-                &#xD;
-                &#xD;
-            </content>
-            <noteticketcontainer/>
-        </config>
-    </processTask>
-    <processTask name="Bekr&#xE6;ftelses opgave" stepnr="18" task="process_taskTicket" disabled="0">
-        <config>
-            <destinationuser/>
-            <destinationusergroup>1</destinationusergroup>
-            <taskgroup/>
-            <customtaskcolumns/>
-            <subject>Opret tv pakke</subject>
-            <sortorder1>{.account::getaddress.}</sortorder1>
-            <sortorder2>{.account::getzipcity.}</sortorder2>
-            <sortorder3>Tekniker</sortorder3>
-            <sortorder4>{.customer::getid.}</sortorder4>
-            <content>&lt;h3&gt;Denne opgave er gennemf&#xF8;rt&lt;/h3&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&#xD;
-                &#xD;
-                &#xD;
-                Kunde oplysninger:&lt;br&gt;&lt;br&gt; &#xD;
-                {.customer::getname.}&lt;br&gt;&#xD;
-                {.instaddress::getaddressstring.}&lt;br&gt;&#xD;
-                {.account::getemail.}&lt;br&gt;&#xD;
-                {.account::getmobile.}&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&#xD;
-                &#xD;
-                Tv pakke:&lt;br&gt;&lt;br&gt;&#xD;
-                Nuv&#xE6;rende tv pakke:{.gfilter.}&#xD;
-                Tv pakke valgt:{.tvpakke::getname.}&lt;br&gt;&#xD;
-                Dato for skifte:{.c_skiftedato.}&lt;br&gt;&#xD;
-                Dato for f&#xF8;rste afregning:{.c_afregningsdato.}&lt;br&gt;&#xD;
-                Notat:{.c_notat.}&lt;br&gt;&#xD;
-                Skifte gebyr:{.c_gebyr.}&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&#xD;
-                &#xD;
-                &#xD;
-                &#xD;
-                &#xD;
-                Tekniker opgave:&lt;br&gt;&lt;br&gt;&#xD;
-                Adresse:{.account::getaddress.}&lt;br&gt;&#xD;
-                Alternativ installations Adresse:{.adresse::getaddressstring.}&lt;br&gt;&#xD;
-                Nuv&#xE6;rende tv pakke:{.gfilter.}&lt;br&gt;&#xD;
-                Tv pakke skiftet til:{.tvpakke::getname.}&lt;br&gt;&#xD;
-                Tv Filter:{.c_nytvfilter.}&lt;br&gt;&#xD;
-                Dato for udf&#xF8;relse:{.c_udfortdato.}&lt;br&gt;&#xD;
-                Note til udf&#xF8;relse:{.c_note2.}&lt;br&gt;&#xD;
-                &#xD;
-                &#xD;
-                &#xD;
-            </content>
-            <deadline>;;;</deadline>
-            <deadlinerelation/>
-            <action>;;;</action>
-            <actionrelation/>
-            <scheduleactive/>
-            <scheduleusergroup/>
-            <scheduletduration/>
-            <schedulenote/>
-            <priority></priority>
-            <waitforreply></waitforreply>
-            <continueifdeadlinepassed/>
-            <ifdeadlinepassed/>
-            <showasdialog/>
-        </config>
-    </processTask>
-    <processTask name="test" stepnr="19" task="process_wait" disabled="0">
-        <config>
-            <waittime>1</waittime>
-            <waituntil/>
-        </config>
-    </processTask>
-    <processTask name="afslut" stepnr="20" task="process_jumpProcess" disabled="0">
+    <processTask name="Hop til liste" stepnr="9" task="process_jumpProcess" disabled="0">
         <config>
             <branchrulea>1</branchrulea>
             <branchoperator>==</branchoperator>
             <branchruleb>1</branchruleb>
+            <processstepnr>24</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="Bland selv Fuld load tv" stepnr="10" task="process_findProduct" disabled="0">
+        <config>
+            <productident>TV - Blandselv - Fuldpakke</productident>
+            <producttype>tvpacket</producttype>
+            <cpidvariable></cpidvariable>
+            <blactive>1</blactive>
+            <active></active>
+            <date></date>
+            <customattribute></customattribute>
+            <instaddress></instaddress>
+            <connid></connid>
+        </config>
+    </processTask>
+    <processTask name="er der tv pakke" stepnr="11" task="process_jumpProcess" disabled="0">
+        <config>
+            <branchrulea>{.findproduct_result.}</branchrulea>
+            <branchoperator>&lt;&gt;</branchoperator>
+            <branchruleb>1</branchruleb>
+            <processstepnr>13</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="Hop til kontrol" stepnr="12" task="process_jumpProcess" disabled="0">
+        <config>
+            <branchrulea>1</branchrulea>
+            <branchoperator>==</branchoperator>
+            <branchruleb>1</branchruleb>
+            <processstepnr>18</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="Blandselv  mellem load tv" stepnr="13" task="process_findProduct" disabled="0">
+        <config>
+            <productident>TV - Blandselv - Mellempakke</productident>
+            <producttype>tvpacket</producttype>
+            <cpidvariable></cpidvariable>
+            <blactive>1</blactive>
+            <active></active>
+            <date></date>
+            <customattribute></customattribute>
+            <instaddress></instaddress>
+            <connid></connid>
+        </config>
+    </processTask>
+    <processTask name="er der tv pakke" stepnr="14" task="process_jumpProcess" disabled="0">
+        <config>
+            <branchrulea>{.findproduct_result.}</branchrulea>
+            <branchoperator>&lt;&gt;</branchoperator>
+            <branchruleb>1</branchruleb>
+            <processstepnr>16</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="Hop til kontrol" stepnr="15" task="process_jumpProcess" disabled="0">
+        <config>
+            <branchrulea>1</branchrulea>
+            <branchoperator>==</branchoperator>
+            <branchruleb>1</branchruleb>
+            <processstepnr>18</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="Grundpakke load tv" stepnr="16" task="process_findProduct" disabled="0">
+        <config>
+            <productident>TVGrundpakke</productident>
+            <producttype>tvpacket</producttype>
+            <cpidvariable></cpidvariable>
+            <blactive>1</blactive>
+            <active></active>
+            <date></date>
+            <customattribute></customattribute>
+            <instaddress></instaddress>
+            <connid></connid>
+        </config>
+    </processTask>
+    <processTask name="er der tv pakke" stepnr="17" task="process_jumpProcess" disabled="0">
+        <config>
+            <branchrulea>{.findproduct_result.}</branchrulea>
+            <branchoperator>&lt;&gt;</branchoperator>
+            <branchruleb>1</branchruleb>
+            <processstepnr>20</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="Passer grund pakke" stepnr="18" task="process_jumpProcess" disabled="0">
+        <config>
+            <branchrulea>{.instaddress::(TV Pakke).}</branchrulea>
+            <branchoperator>==</branchoperator>
+            <branchruleb>1</branchruleb>
             <processstepnr>-1</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="Hop til liste" stepnr="19" task="process_jumpProcess" disabled="0">
+        <config>
+            <branchrulea>1</branchrulea>
+            <branchoperator>==</branchoperator>
+            <branchruleb>1</branchruleb>
+            <processstepnr>24</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="ingen tv pakke" stepnr="20" task="process_jumpProcess" disabled="0">
+        <config>
+            <branchrulea>{.instaddress::(TV Pakke).}</branchrulea>
+            <branchoperator>==</branchoperator>
+            <branchruleb></branchruleb>
+            <processstepnr>-1</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="ingen tv pakke 2" stepnr="21" task="process_jumpProcess" disabled="0">
+        <config>
+            <branchrulea>{.instaddress::(TV Pakke).}</branchrulea>
+            <branchoperator>==</branchoperator>
+            <branchruleb>ingen</branchruleb>
+            <processstepnr>-1</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="ingen tvpakke 3" stepnr="22" task="process_jumpProcess" disabled="0">
+        <config>
+            <branchrulea>{.instaddress::(TV Pakke).}</branchrulea>
+            <branchoperator>==</branchoperator>
+            <branchruleb>8</branchruleb>
+            <processstepnr>-1</processstepnr>
+        </config>
+    </processTask>
+    <processTask name="Liste over forkerte tvpakke" stepnr="23" task="process_taskTicket" disabled="0">
+        <config>
+            <destinationuser>51231</destinationuser>
+            <destinationusergroup></destinationusergroup>
+            <taskgroup>Liste over forkerte TV pakke</taskgroup>
+            <customtaskcolumns></customtaskcolumns>
+            <subject></subject>
+            <sortorder1>{.customer::getName.}</sortorder1>
+            <sortorder2>{.customer::getAddress.}</sortorder2>
+            <sortorder3>{.customer::getZip.}</sortorder3>
+            <sortorder4></sortorder4>
+            <content>1=grundpakke&lt;br&gt;&#xD;
+                2=mellempakke&lt;br&gt;&#xD;
+                3=fuldpakke&lt;br&gt;&#xD;
+                &lt;br&gt;&lt;br&gt;&#xD;
+                TV produkt der er aktiv: {.productconf::getmediationgroup.}&lt;br&gt;&#xD;
+                Tv produkt p&#xE5; adresse feltet: {.instaddress::(TV Pakke).}&lt;br&gt;&#xD;
+                &lt;a href="https://panther.ka-net.dk/cm/accounting.editcustomer?customerid={.customer::getid.}"&gt;kunde
+                siden&lt;/a&gt;&#xD;
+            </content>
+            <deadline>;;;</deadline>
+            <deadlinerelation></deadlinerelation>
+            <action>;;;</action>
+            <actionrelation></actionrelation>
+            <scheduleactive></scheduleactive>
+            <scheduleusergroup></scheduleusergroup>
+            <scheduletduration></scheduletduration>
+            <schedulenote></schedulenote>
+            <priority></priority>
+            <waitforreply>yes</waitforreply>
+            <continueifdeadlinepassed></continueifdeadlinepassed>
+            <ifdeadlinepassed></ifdeadlinepassed>
+            <showasdialog></showasdialog>
         </config>
     </processTask>
 </process>
