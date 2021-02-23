@@ -48,6 +48,8 @@ echo $csvheader;
 fwrite($filen,$csvheader);
 fclose($filen);
 
+shell_exec("git config --global credential.helper 'cache --timeout 28800'");
+
 shell_exec("git commit -a -m 'ny verion'");
 
 echo shell_exec("git push");
