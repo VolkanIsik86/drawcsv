@@ -106,7 +106,7 @@ function regularStep($i){
          else {
              $csvheader .= ",$color,#000000," . "rhombus," . $step[$i]->config->branchrulea
                  . $step[$i]->config->branchoperator
-                 . $step[$i]->config->branchruleb."\n \n"
+                 . $step[$i]->config->branchruleb
                  . "," . "," . "\""
                  . $step[$i]->config->processstepnr
                  . "\"" . ","
