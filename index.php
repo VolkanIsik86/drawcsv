@@ -53,7 +53,7 @@ fwrite($filen,$csvheader);
 fclose($filen);
 
 
-shell_exec("git commit -a -m 'ny verion' && git push");
+shell_exec("git commit -a -m 'ny verion' && git push VolkanIsik86");
 //echo($step[2]->config->branchrulea);
 
 //print_r($xml);
