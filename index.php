@@ -61,7 +61,7 @@ echo shell_exec("git push");
  function jump($i){
      global $csvheader;
      global $step;
-     $color="#FFE599";
+     $color="#ffe599";
      if($i!=(sizeof($step)-1)) {
          if ($step[$i]->config->processstepnr == -1) {
              $csvheader .= ",$color,#000000," . "rhombus," . $step[$i]->config->branchrulea
