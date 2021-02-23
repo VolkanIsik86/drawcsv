@@ -61,15 +61,16 @@ echo shell_exec("git push");
  function jump($i){
      global $csvheader;
      global $step;
+     $color="#FFE599";
      if($i!=(sizeof($step)-1)) {
          if ($step[$i]->config->processstepnr == -1) {
-             $csvheader .= ",#b85450,#000000," . "rhombus," . $step[$i]->config->branchrulea
+             $csvheader .= ",$color,#000000," . "rhombus," . $step[$i]->config->branchrulea
                  . $step[$i]->config->branchoperator
                  . $step[$i]->config->branchruleb
                  . "," . "," . ","
                  ;
          }elseif ($step[$i]->config->branchrulea==1 && $step[$i]->config->branchoperator=="==" && $step[$i]->config->branchruleb==1){
-             $csvheader .= ",#b85450,#000000," . "rhombus," . $step[$i]->config->branchrulea
+             $csvheader .= ",$color,#000000," . "rhombus," . $step[$i]->config->branchrulea
                  . $step[$i]->config->branchoperator
                  . $step[$i]->config->branchruleb
                  . "," . "," . "\""
@@ -78,7 +79,7 @@ echo shell_exec("git push");
                  ;
          }
          else {
-             $csvheader .= ",#b85450,#000000," . "rhombus," . $step[$i]->config->branchrulea
+             $csvheader .= ",$color,#000000," . "rhombus," . $step[$i]->config->branchrulea
                  . $step[$i]->config->branchoperator
                  . $step[$i]->config->branchruleb
                  . "," . "," . "\""
@@ -87,7 +88,7 @@ echo shell_exec("git push");
                  . "\"" . ($i + 2) . "\"";
          }
      }else {
-         $csvheader .= ",#b85450,#000000," . "rhombus," . "," . "," . ",";
+         $csvheader .= ",$color,#000000," . "rhombus," . "," . "," . ",";
      }
 
  }
