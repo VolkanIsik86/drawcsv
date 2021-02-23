@@ -43,10 +43,6 @@ for($i=0 ; sizeof($step) > $i; $i++){
 
     $csvheader.="\n";
 }
-
-
-
-
 echo $csvheader;
 
 fwrite($filen,$csvheader);
@@ -54,7 +50,7 @@ fclose($filen);
 
 shell_exec("git commit -a -m 'ny verion'");
 
-shell_exec("git push");
+echo shell_exec("git push");
 
 //echo($step[2]->config->branchrulea);
 
