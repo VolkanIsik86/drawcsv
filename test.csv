@@ -17,21 +17,31 @@
 id,step,fill,stroke,shape,cond,refs,refyes,refno
 1,afslut hvis ikke primærkonto,#ffe599,#000000,rhombus,{.account::getdefault.}<>1,,,"2"
 2,Fuldpakke Load TV,#dae8fc,#000000,rectangle,,"3",,
-3,er der en tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1,,"6","4"
+3,er der en tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1
+ 
+,,"6","4"
 4,Passer Fuldpakke,#ffe599,#000000,rhombus,{.instaddress::(TV Pakke).}=={.productconf::getmediationgroup.},,,"5"
 5,Hop til liste,#ffe599,#000000,rhombus,1==1,,"24",
 6,Mellempakke load tv,#dae8fc,#000000,rectangle,,"7",,
-7,er der en tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1,,"10","8"
+7,er der en tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1
+ 
+,,"10","8"
 8,Passer mellempakke,#ffe599,#000000,rhombus,{.instaddress::(TV Pakke).}=={.productconf::getmediationgroup.},,,"9"
 9,Hop til liste,#ffe599,#000000,rhombus,1==1,,"24",
 10,Bland selv Fuld load tv,#dae8fc,#000000,rectangle,,"11",,
-11,er der tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1,,"13","12"
+11,er der tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1
+ 
+,,"13","12"
 12,Hop til kontrol,#ffe599,#000000,rhombus,1==1,,"18",
 13,Blandselv  mellem load tv,#dae8fc,#000000,rectangle,,"14",,
-14,er der tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1,,"16","15"
+14,er der tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1
+ 
+,,"16","15"
 15,Hop til kontrol,#ffe599,#000000,rhombus,1==1,,"18",
 16,Grundpakke load tv,#dae8fc,#000000,rectangle,,"17",,
-17,er der tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1,,"20","18"
+17,er der tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1
+ 
+,,"20","18"
 18,Passer grund pakke,#ffe599,#000000,rhombus,{.instaddress::(TV Pakke).}==1,,,"19"
 19,Hop til liste,#ffe599,#000000,rhombus,1==1,,"24",
 20,ingen tv pakke,#ffe599,#000000,rhombus,{.instaddress::(TV Pakke).}==,,,"21"
