@@ -30,10 +30,7 @@ for($i=0 ; sizeof($step) > $i; $i++){
     }
 
     elseif ($step[$i]["task"]=="process_startProcess"){
-        if($i!=(sizeof($step)-1))
-        $csvheader.=",#d6b656,#000000," . "ellipse," . "," . "\"". ($i+2) . "\"" ."," .",";
-        else
-            $csvheader.=",#d6b656,#000000," . "ellipse," . "," ."," . ",";
+        processStart($i);
     }else{
         if($i!=(sizeof($step)-1))
         $csvheader.=",#d5e8d4,#000000," . "rectangle," . "," . "\"". ($i+2) . "\"" . "," . ",";
@@ -57,6 +54,18 @@ echo shell_exec("git push");
 //echo($step[2]->config->branchrulea);
 
 //print_r($xml);
+
+function processStart($i){
+    global $csvheader;
+    global $step;
+    $color="#97d077";
+    if($i!=(sizeof($step)-1)) {
+        $csvheader .= ",$color,#000000," . "ellipse," . "," . "\"" . ($i + 2) . "\"" . "," . ",";
+    } else {
+        $csvheader .= ",$color,#000000," . "ellipse," . "," . "," . ",";
+    }
+    
+}
 
  function jump($i){
      global $csvheader;

@@ -15,7 +15,7 @@
 # layout: auto
 ## CSV starts under this line
 id,step,fill,stroke,shape,cond,refs,refyes,refno
-1,Er der flere adresser,#d6b656,#000000,ellipse,,"2",,
+1,Er der flere adresser,#97d077,#000000,ellipse,,"2",,
 2,søg allerede eksisterende produkter ,#d5e8d4,#000000,rectangle,,"3",,
 3,er der et produkt,#ffe599,#000000,rhombus,{.findproduct_result.}<>0,,"6","4"
 4,old inlæs gamle filter,#d5e8d4,#000000,rectangle,,"5",,
@@ -25,7 +25,7 @@ id,step,fill,stroke,shape,cond,refs,refyes,refno
 8,Tilføj tv pakke(skærm),#d5e8d4,#000000,rectangle,,"9",,
 9,indlæs ny tv pakke,#d5e8d4,#000000,rectangle,,"10",,
 10,Tilføj produkt,#d5e8d4,#000000,rectangle,,"11",,
-11,indsæt gebyr,#d6b656,#000000,ellipse,,"12",,
+11,indsæt gebyr,#97d077,#000000,ellipse,,"12",,
 12,Sæt statustekst,#d5e8d4,#000000,rectangle,,"13",,
 13,Behov for tekniker?,#ffe599,#000000,rhombus,{.c_teknik.}<>Ja,,"15","14"
 14,opret teknikeropgave,#d5e8d4,#000000,rectangle,,"15",,
