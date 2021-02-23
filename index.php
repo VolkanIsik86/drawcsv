@@ -32,10 +32,7 @@ for($i=0 ; sizeof($step) > $i; $i++){
     elseif ($step[$i]["task"]=="process_startProcess"){
         processStart($i);
     }else{
-        if($i!=(sizeof($step)-1))
-        $csvheader.=",#d5e8d4,#000000," . "rectangle," . "," . "\"". ($i+2) . "\"" . "," . ",";
-        else
-            $csvheader.=",#d5e8d4,#000000," . "rectangle," . "," ."," . ",";
+        regularStep($i);
     }
 
     $csvheader.="\n";
@@ -64,8 +61,20 @@ function processStart($i){
     } else {
         $csvheader .= ",$color,#000000," . "ellipse," . "," . "," . ",";
     }
-    
+
 }
+
+function regularStep($i){
+    global $csvheader;
+    global $step;
+    $color="#dae8fc";
+    if($i!=(sizeof($step)-1))
+        $csvheader.=",$color,#000000," . "rectangle," . "," . "\"". ($i+2) . "\"" . "," . ",";
+    else
+        $csvheader.=",$color,#000000," . "rectangle," . "," ."," . ",";
+
+}
+
 
  function jump($i){
      global $csvheader;
