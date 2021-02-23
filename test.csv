@@ -1,0 +1,37 @@
+## Hello World
+# label: %step%<br>%cond%
+# style: shape=%shape%;fillColor=%fill%;strokeColor=%stroke%;html=1;
+# namespace: csvimport-
+# connect: {"from":"refs", "to":"id","style": "rounded=0;endArrow=blockThin;endFill=1;startArrow=none;startFill=0;jumpStyle=sharp;edgeStyle=orthogonalEdgeStyle;"}
+# connect: {"from":"refyes", "to":"id", "label":"true", "style": "rounded=0;endArrow=blockThin;endFill=1;startArrow=none;startFill=0;jumpStyle=sharp;edgeStyle=orthogonalEdgeStyle;"}
+# connect: {"from":"refno", "to":"id", "label":"false", "style": "rounded=0;endArrow=blockThin;endFill=1;startArrow=none;startFill=0;jumpStyle=sharp;edgeStyle=orthogonalEdgeStyle;"}
+# width: auto
+# height: auto
+# padding: 5
+# ignore: id,shape,fill,stroke,refs
+# nodespacing: 60
+# levelspacing: 120
+# edgespacing: 40
+# layout: auto
+## CSV starts under this line
+id,step,fill,stroke,shape,cond,refs,refyes,refno
+1,Er der flere adresser,#d6b656,#000000,ellipse,,"2",,
+2,søg allerede eksisterende produkter ,#d5e8d4,#000000,rectangle,,"3",,
+3,er der et produkt,#b85450,#000000,rhombus,{.findproduct_result.}<>0,,"6","4"
+4,old inlæs gamle filter,#d5e8d4,#000000,rectangle,,"5",,
+5,Næsteskridt,#b85450,#000000,rhombus,1==1,,"8","6"
+6,advarer om eksisterende produkt,#d5e8d4,#000000,rectangle,,"7",,
+7,afslut,#b85450,#000000,rhombus,1==1,,,
+8,Tilføj tv pakke(skærm),#d5e8d4,#000000,rectangle,,"9",,
+9,indlæs ny tv pakke,#d5e8d4,#000000,rectangle,,"10",,
+10,Tilføj produkt,#d5e8d4,#000000,rectangle,,"11",,
+11,indsæt gebyr,#d6b656,#000000,ellipse,,"12",,
+12,Sæt statustekst,#d5e8d4,#000000,rectangle,,"13",,
+13,Behov for tekniker?,#b85450,#000000,rhombus,{.c_teknik.}<>Ja,,"15","14"
+14,opret teknikeropgave,#d5e8d4,#000000,rectangle,,"15",,
+15,registrer filterskift,#d5e8d4,#000000,rectangle,,"16",,
+16,Skift sæt dato,#d5e8d4,#000000,rectangle,,"17",,
+17,Notat om TV pakke,#d5e8d4,#000000,rectangle,,"18",,
+18,Bekræftelses opgave,#d5e8d4,#000000,rectangle,,"19",,
+19,test,#d5e8d4,#000000,rectangle,,"20",,
+20,afslut,#b85450,#000000,rhombus,,,,
