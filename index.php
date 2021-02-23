@@ -54,7 +54,8 @@ fclose($filen);
 
 shell_exec("git commit -a -m 'ny verion'");
 
-shell_exec("printf \"VolkanIsik86\\Yeniraki86\" | git push");
+shell_exec("git push");
+
 //echo($step[2]->config->branchrulea);
 
 //print_r($xml);
