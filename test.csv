@@ -19,7 +19,7 @@ id,step,fill,stroke,shape,cond,refs,refyes,refno
 2,søg allerede eksisterende produkter ,#d5e8d4,#000000,rectangle,,"3",,
 3,er der et produkt,#b85450,#000000,rhombus,{.findproduct_result.}<>0,,"6","4"
 4,old inlæs gamle filter,#d5e8d4,#000000,rectangle,,"5",,
-5,Næsteskridt,#b85450,#000000,rhombus,1==1,,"8","6"
+5,Næsteskridt,#b85450,#000000,rhombus,1==1,,"8",
 6,advarer om eksisterende produkt,#d5e8d4,#000000,rectangle,,"7",,
 7,afslut,#b85450,#000000,rhombus,1==1,,,
 8,Tilføj tv pakke(skærm),#d5e8d4,#000000,rectangle,,"9",,

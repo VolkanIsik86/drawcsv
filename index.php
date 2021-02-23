@@ -1,11 +1,13 @@
 <?php
 
 $string = array("url"=>"","format"=>"csv");
-$string['url']= "https://raw.githubusercontent.com/VolkanIsik86/drawcsv/main/test.csv";
+$string['url']= "https://raw.githubusercontent.com/VolkanIsik86/drawcsv/master/test.csv";
 $base = base64_encode(zlib_encode(urlencode(json_encode($string)),ZLIB_ENCODING_RAW));
 $link = "https://app.diagrams.net/?desc=".$base;
 echo $link;
 echo "\n";
+
+$filen=fopen("test.csv","w") or die("unable to open");
 
 $csvheader= file_get_contents("csvheader.csv");
 $csvheader.="\n";
@@ -47,7 +49,11 @@ for($i=0 ; sizeof($step) > $i; $i++){
 
 echo $csvheader;
 
+fwrite($filen,$csvheader);
+fclose($filen);
 
+
+shell_exec("git commit -a -m 'ny verion' && git push");
 //echo($step[2]->config->branchrulea);
 
 //print_r($xml);
