@@ -115,5 +115,4 @@ function regularStep($i){
      }else {
          $csvheader .= ",$color,#000000," . "rhombus," . "," . "," . ",";
      }
-
  }
