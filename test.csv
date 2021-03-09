@@ -15,26 +15,22 @@
 # layout: auto
 ## CSV starts under this line
 id,step,fill,stroke,shape,cond,refs,refyes,refno
-1,afslut hvis ikke primærkonto,#ffe599,#000000,rhombus,{.account::getdefault.}<>1,,,"2"
-2,Fuldpakke Load TV,#dae8fc,#000000,rectangle,,"3",,
-3,er der en tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1,,"6","4"
-4,Passer Fuldpakke,#ffe599,#000000,rhombus,{.instaddress::(TV Pakke).}=={.productconf::getmediationgroup.},,,"5"
-5,Hop til liste,#ffe599,#000000,rhombus,1==1,,"24",
-6,Mellempakke load tv,#dae8fc,#000000,rectangle,,"7",,
-7,er der en tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1,,"10","8"
-8,Passer mellempakke,#ffe599,#000000,rhombus,{.instaddress::(TV Pakke).}=={.productconf::getmediationgroup.},,,"9"
-9,Hop til liste,#ffe599,#000000,rhombus,1==1,,"24",
-10,Bland selv Fuld load tv,#dae8fc,#000000,rectangle,,"11",,
-11,er der tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1,,"13","12"
-12,Hop til kontrol,#ffe599,#000000,rhombus,1==1,,"18",
-13,Blandselv  mellem load tv,#dae8fc,#000000,rectangle,,"14",,
-14,er der tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1,,"16","15"
-15,Hop til kontrol,#ffe599,#000000,rhombus,1==1,,"18",
-16,Grundpakke load tv,#dae8fc,#000000,rectangle,,"17",,
-17,er der tv pakke,#ffe599,#000000,rhombus,{.findproduct_result.}<>1,,"20","18"
-18,Passer grund pakke,#ffe599,#000000,rhombus,{.instaddress::(TV Pakke).}==1,,,"19"
-19,Hop til liste,#ffe599,#000000,rhombus,1==1,,"24",
-20,ingen tv pakke,#ffe599,#000000,rhombus,{.instaddress::(TV Pakke).}==,,,"21"
-21,ingen tv pakke 2,#ffe599,#000000,rhombus,{.instaddress::(TV Pakke).}==ingen,,,"22"
-22,ingen tvpakke 3,#ffe599,#000000,rhombus,{.instaddress::(TV Pakke).}==8,,,"23"
-23,Liste over forkerte tvpakke,#dae8fc,#000000,rectangle,,,,
+1,Find nuværende produkt,#dae8fc,#000000,rectangle,,"2",,
+2,Har kunden flytte status?,#ffe599,#000000,rhombus,{.instaddress::gettostamp.}<>-1,,"8","3"
+3,Fejlmeddelelse,#dae8fc,#000000,rectangle,,"4",,
+4,Er medlem allerede flyttet?,#ffe599,#000000,rhombus,{.c_flyttet.}==ja,,"7","5"
+5,Fejl,#dae8fc,#000000,rectangle,,"6",,
+6,Afslut,#ffe599,#000000,rhombus,1==1,,,
+7,Find Forrige adresse,#dae8fc,#000000,rectangle,,"8",,
+8,Flytte opgave,#dae8fc,#000000,rectangle,,"9",,
+9,vent,#dae8fc,#000000,rectangle,,"10",,
+10,Load adresse,#dae8fc,#000000,rectangle,,"11",,
+11,start process,#97d077,#000000,ellipse,,"12",,
+12,Notat om ordre,#dae8fc,#000000,rectangle,,"13",,
+13,Skift produkt,#dae8fc,#000000,rectangle,,"14",,
+14,Opret flytteopgaver,#dae8fc,#000000,rectangle,,"15",,
+15,Yousee tilmelding,#dae8fc,#000000,rectangle,,"16",,
+16,Lukke produkter ?,#ffe599,#000000,rhombus,{.c_nytvpakke.}<>157,,"19","17"
+17,Luk produkter i gamle adresse,#dae8fc,#000000,rectangle,,"18",,
+18,vent,#dae8fc,#000000,rectangle,,"19",,
+19,Ny adresse,#97d077,#000000,ellipse,,,,
