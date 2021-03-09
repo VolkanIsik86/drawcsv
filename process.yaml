@@ -1,0 +1,202 @@
+exportid: 5f2a7f1c345da
+name: 'Flytte Process del1'
+initcontent: ''
+startscope: account
+processtask:
+  -
+    name: 'Find nuværende produkt'
+    exportid: 5f2a7f1c35214
+    stepnr: '1'
+    task: process_findProduct
+    config:
+      producttype: youseetvpacket
+      blactive: '1'
+      active: ' '
+  -
+    name: 'Har kunden flytte status?'
+    exportid: 5f2a7f1c35697
+    stepnr: '2'
+    task: process_jumpProcess
+    config:
+      branchrulea: '{.instaddress::gettostamp.}'
+      branchoperator: '<>'
+      branchruleb: '-1'
+      processstepnr: '8'
+  -
+    name: Fejlmeddelelse
+    exportid: 5f2a7f1c363a6
+    stepnr: '3'
+    task: process_taskTicket
+    config:
+      destinationuser: '{.user::getid.}'
+      content: "<b>Systemet kan ikke se en fremtidig flyttedato.</b><br /><br /> \r\nEr medlemmet flyttet på en tidligere dato? <br />\r\n<br />\r\nMedlem er flyttet i dag, eller tidligere: [.flyttet;select|ja:ja,nej:nej;;Mandatory;.]<br /><br />\r\nHvis medlem ikke er flyttet tidligere og der vælges \"nej\", lukker processen ned nu. \r\n\r\n"
+      deadline: ;;;
+      action: ;;;
+      scheduleactive: ''
+      priority: '2'
+      waitforreply: 'yes'
+      continueifdeadlinepassed: ''
+      showasdialog: 'true'
+  -
+    name: 'Er medlem allerede flyttet?'
+    exportid: 5f2a7f1c36793
+    stepnr: '4'
+    task: process_jumpProcess
+    config:
+      branchrulea: '{.c_flyttet.}'
+      branchoperator: '=='
+      branchruleb: ja
+      processstepnr: '7'
+  -
+    name: Fejl
+    exportid: 5f2a7f1c37474
+    stepnr: '5'
+    task: process_taskTicket
+    config:
+      destinationuser: '{.user::getid.}'
+      subject: Fejl
+      content: 'Det ser desværre ikke ud til at der er registreret en flytte dato på medlemmet. Brug flyt knappen, før denne proces køres. '
+      deadline: ;;;
+      action: ;;;
+      scheduleactive: ''
+      priority: '3'
+      waitforreply: 'yes'
+      continueifdeadlinepassed: ''
+      showasdialog: 'true'
+  -
+    name: Afslut
+    exportid: 5f2a7f1c37888
+    stepnr: '6'
+    task: process_jumpProcess
+    config:
+      branchrulea: '1'
+      branchoperator: '=='
+      branchruleb: '1'
+      processstepnr: '-1'
+  -
+    name: 'Find Forrige adresse'
+    exportid: 5f2a7f1c385ba
+    stepnr: '7'
+    task: process_findAddress
+    config:
+      relative: prev
+  -
+    name: 'Flytte opgave'
+    exportid: 5f2a7f1c389fb
+    stepnr: '8'
+    task: process_taskTicket
+    config:
+      destinationuser: '{.user::getid.}'
+      subject: 'Teknikopgaver ved flytning'
+      content: "<table>\r\n   <tr>\r\n      <td><b>Opgave på gammel adresse:</b></td>\r\n      <td>{.instaddress::getaddressstring.} {.instaddress::getZipCity.}</td>\r\n      <td></td>\r\n      <td></td>\r\n      <td>\r\n   </tr>\r\n   <tr>\r\n      <td>Nuværende Tv pakke:</td>\r\n      <td>{.productconf::getname.}</td>\r\n   </tr>\r\n   <tr>\r\n      <td>&nbsp;</td>\r\n      <td></td>\r\n      <td></td>\r\n      <td></td>\r\n   </tr>\r\n   <tr>\r\n      <td>Pakkeskifte til: </td>\r\n      <td>[.nytvpakke;object|productconf:iterateByCustomerGroupIDPM:{.customergroup::getid.}:Youseetvpacket;;mandatory;width:140px;.]</td>\r\n      <td></td>\r\n      <td></td>\r\n      <td></td>\r\n   </tr>\r\n   <tr>\r\n      <td>Dato for Tv-pakke skift i panther:    </td>\r\n      <td>[.pantherdato;text-date;;;Mandatory;.]</td>\r\n   </tr>\r\n   <tr>\r\n      <td>Dato for filter-skifte:    </td>\r\n      <td>[.skiftedato;text-date;;;Mandatory;.]</td>\r\n   </tr>\r\n   <tr>\r\n      <td>Dato for Yousee ændring: </td>\r\n      <td>[.youseestartdato;text-date;;;Mandatory;.]</td>\r\n      <td></td>\r\n   </tr>\r\n   <tr>\r\n      <td>&nbsp;</td>\r\n      <td></td>\r\n      <td></td>\r\n      <td></td>\r\n   </tr>\r\n   <tr>\r\n      <td valign=\"top\">Opgave:    </td>\r\n      <td>[.dktv;radio|1:Ingen tekniker opgave og ingen tilmelding,2:Tekniker opgave – tilmelding til youSee,3:Ingen tekniker – tilmelding til youSee,4:Tekniker opgave – ingen tilmelding til youSee;;;;.]</td>\r\n      <td></td>\r\n      <td></td>\r\n      <td></td>\r\n   </tr>\r\n   <tr>\r\n      <td>&nbsp;</td>\r\n      <td></td>\r\n      <td></td>\r\n      <td></td>\r\n   </tr>\r\n   <br><br>\r\n   <tr>\r\n      <td>Tlf:             </td>\r\n      <td>{.account::getphone.}</td>\r\n      <td></td>\r\n      <td></td>\r\n      <td></td>\r\n   </tr>\r\n   <tr>\r\n      <td>Mobil:           </td>\r\n      <td>{.account::getmobile.}</td>\r\n      <td></td>\r\n      <td></td>\r\n      <td></td>\r\n   </tr>\r\n   <tr>\r\n      <td>E-mail:          </td>\r\n      <td>{.account::getemail.}</td>\r\n      <td></td>\r\n      <td></td>\r\n      <td></td>\r\n   </tr>\r\n</table>"
+      deadline: ;;;
+      action: ;;;
+      scheduleactive: ''
+      priority: '3'
+      waitforreply: 'yes'
+      continueifdeadlinepassed: ''
+      showasdialog: 'true'
+  -
+    name: vent
+    exportid: 5f2a7f1c38e77
+    stepnr: '9'
+    task: process_wait
+    disabled: '1'
+    config:
+      waittime: '2'
+  -
+    name: 'Load adresse'
+    exportid: 5f2a7f1c39282
+    stepnr: '10'
+    task: process_setvariables2
+    config:
+      setvariables: "fraflyt={.helpers::loadInstaddress(instaddress::getID).};newtv={.helpers::loadProductconf(c_nytvpakke).};oldtv={.helpers::loadProductconf(productconf::getid).};\r\n"
+  -
+    name: 'start process'
+    exportid: 60471b3ab03f8
+    stepnr: '11'
+    task: process_startProcess
+    config:
+      branchrulea: '1'
+      branchoperator: '=='
+      branchruleb: '1'
+      process: gebyr
+      breakprocess: ''
+  -
+    name: 'Notat om ordre'
+    exportid: 5f2a7f1c39674
+    stepnr: '12'
+    task: process_noteTicket
+    config:
+      instaddressobject: instaddress
+      subject: 'Skift til {.newtv::getname.} pakke ordret'
+      content: "Skifte fra {.oldtv::getname.} til {.newtv::getname.} Den {.c_filterdato.} ordret på {.instaddress::getaddressstring.}<br>.\r\n"
+  -
+    name: 'Skift produkt'
+    exportid: 5f2a7f1c399e2
+    stepnr: '13'
+    task: process_upgradeProduct
+    config:
+      productconf: '{.c_nytvpakke.}'
+      startdate: '{.c_pantherdato.}'
+  -
+    name: 'Opret flytteopgaver'
+    exportid: 5f2a7f1c39d7c
+    stepnr: '14'
+    task: process_startProcesses
+    config:
+      switchon: '{.c_dktv.}'
+      branchoperator: '=='
+      branchrulea: '2'
+      processa: 'Tekniker opgave'
+      branchruleb: '4'
+      processb: 'Tekniker opgave'
+      breakprocess: ''
+  -
+    name: 'Yousee tilmelding'
+    exportid: 5f2a7f1c3a593
+    stepnr: '15'
+    task: process_youseesettvAPIv2
+    disabled: '1'
+    config:
+      debug: ''
+      operation: '0'
+  -
+    name: 'Lukke produkter ?'
+    exportid: 5f2a7f1c3a903
+    stepnr: '16'
+    task: process_jumpProcess
+    disabled: '1'
+    config:
+      branchrulea: '{.c_nytvpakke.}'
+      branchoperator: '<>'
+      branchruleb: '157'
+      processstepnr: '19'
+  -
+    name: 'Luk produkter i gamle adresse'
+    exportid: 5f2a7f1c3b549
+    stepnr: '17'
+    task: process_changeCustomer
+    disabled: '1'
+    config:
+      operation: expireproducts
+      date: '{.c_pantherdato.}'
+  -
+    name: vent
+    exportid: 5f2a7f1c3b88d
+    stepnr: '18'
+    task: process_wait
+    disabled: '1'
+    config:
+      waittime: '1'
+  -
+    name: 'Ny adresse'
+    exportid: 5f2a7f1c3bc05
+    stepnr: '19'
+    task: process_startProcess
+    config:
+      branchrulea: '1'
+      branchoperator: '=='
+      branchruleb: '1'
+      process: 'Flytte Process del2'
+      breakprocess: 'true'

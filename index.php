@@ -13,6 +13,12 @@ $csvheader= file_get_contents("csvheader.csv");
 $csvheader.="\n";
 $file = file_get_contents("process.xml");
 
+$yamlfile = file_get_contents("process.yaml");
+echo $yamlfile;
+
+//$yaml =  yaml_parse($yamlfile);
+//print_r($yaml);
+
 $xml = simplexml_load_string($file);
 
 $step = $xml->processTask;
