@@ -22,8 +22,6 @@ $yaml = Yaml::parse($iso);
 
 $step = $yaml['processtask'];
 
-echo $step[18]['config']['process'];
-
 for ($i = 0; sizeof($step) > $i; $i++) {
     $csvheader .= $step[$i]["stepnr"] . "," . $step[$i]["name"];
 
@@ -63,7 +61,7 @@ function processStart($i)
     if ($i != (sizeof($step) - 1)) {
         $csvheader .= ",$color,#000000," . "ellipse," . "," . "\"" . ($i + 2) . "\"" . "," . ",";
     } else {
-        $csvheader .= ",$color,#000000," . "ellipse," . "$step[$i]['config']['process']". "," . "," . ",";
+        $csvheader .= ",$color,#000000," . "ellipse," . $step[$i]['config']['process']. "," . "," . ",";
     }
 
 }

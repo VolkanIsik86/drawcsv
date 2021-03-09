@@ -33,4 +33,4 @@ id,step,fill,stroke,shape,cond,refs,refyes,refno
 16,Lukke produkter ?,#b6b6b6,#000000,rhombus,{.c_nytvpakke.}<>157,,"19","17"
 17,Luk produkter i gamle adresse,#b6b6b6,#000000,rectangle,,"18",,
 18,vent,#b6b6b6,#000000,rectangle,,"19",,
-19,Ny adresse,#97d077,#000000,ellipse,Array['config']['process'],,,
+19,Ny adresse,#97d077,#000000,ellipse,Flytte Process del2,,,
