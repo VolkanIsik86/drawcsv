@@ -63,7 +63,7 @@ function processStart($i)
     if ($i != (sizeof($step) - 1)) {
         $csvheader .= ",$color,#000000," . "ellipse," . "," . "\"" . ($i + 2) . "\"" . "," . ",";
     } else {
-        $csvheader .= ",$color,#000000," . "ellipse," . "," . "," . ",";
+        $csvheader .= ",$color,#000000," . "ellipse," . "$step[$i]['config']['process']". "," . "," . ",";
     }
 
 }
