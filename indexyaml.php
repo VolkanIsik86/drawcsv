@@ -21,7 +21,7 @@ $yaml =  Yaml::parse($iso);
 
 $step = $yaml['processtask'];
 
-print_r($step[0]);
+print_r($step[0]['disabled']);
 
 
 $symTabel = array();
@@ -91,7 +91,7 @@ function regularStep($i){
      if($step[$i]['disabled']==1){
          $color = "#b6b6b6";
      }
-     
+
      if($i!=(sizeof($step)-1)) {
          if ($step[$i]['config']['processstepnr'] == -1) {
              if($step[$i]['config']['branchrulea']==1 && $step[$i]['config']['branchoperator']=="==" && $step[$i]['config']['branchruleb']==1) {
