@@ -56,7 +56,11 @@ echo shell_exec("git push");
 function processStart($i){
     global $csvheader;
     global $step;
-    $color="#97d077";
+    $color = "#97d077";
+    if($step[$i]['disabled']==1){
+        $color = "#b6b6b6";
+    }
+
     if($i!=(sizeof($step)-1)) {
         $csvheader .= ",$color,#000000," . "ellipse," . "," . "\"" . ($i + 2) . "\"" . "," . ",";
     } else {
@@ -69,6 +73,9 @@ function regularStep($i){
     global $csvheader;
     global $step;
     $color="#dae8fc";
+    if($step[$i]['disabled']==1){
+        $color = "#b6b6b6";
+    }
     if($i!=(sizeof($step)-1))
         $csvheader.=",$color,#000000," . "rectangle," . "," . "\"". ($i+2) . "\"" . "," . ",";
     else
@@ -81,6 +88,10 @@ function regularStep($i){
      global $csvheader;
      global $step;
      $color="#ffe599";
+     if($step[$i]['disabled']==1){
+         $color = "#b6b6b6";
+     }
+     
      if($i!=(sizeof($step)-1)) {
          if ($step[$i]['config']['processstepnr'] == -1) {
              if($step[$i]['config']['branchrulea']==1 && $step[$i]['config']['branchoperator']=="==" && $step[$i]['config']['branchruleb']==1) {
