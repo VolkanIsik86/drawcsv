@@ -25,7 +25,7 @@ id,step,fill,stroke,shape,cond,refs,refyes,refno
 8,Flytte opgave,#dae8fc,#000000,rectangle,,"9",,
 9,vent,#b6b6b6,#000000,rectangle,,"10",,
 10,Load adresse,#dae8fc,#000000,rectangle,,"11",,
-11,start process,#97d077,#000000,ellipse,,"12",,
+11,start process,#97d077,#000000,ellipse,gebyr,"12",,
 12,Notat om ordre,#dae8fc,#000000,rectangle,,"13",,
 13,Skift produkt,#dae8fc,#000000,rectangle,,"14",,
 14,Opret flytteopgaver,#dae8fc,#000000,rectangle,,"15",,
