@@ -14,9 +14,8 @@ $csvheader.="\n";
 $file = file_get_contents("process.xml");
 
 $yamlfile = file_get_contents("process.yaml");
-echo $yamlfile;
 
-//$yaml =  yaml_parse($yamlfile);
+$yaml =  yaml_parse_file("process.yaml");
 //print_r($yaml);
 
 $xml = simplexml_load_string($file);
