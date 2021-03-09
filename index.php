@@ -15,7 +15,7 @@ $file = file_get_contents("process.xml");
 
 $yamlfile = file_get_contents("process.yaml");
 
-$yaml =  yaml_parse_file("process.yaml");
+$yaml =  yaml_parse($yamlfile);
 //print_r($yaml);
 
 $xml = simplexml_load_string($file);
