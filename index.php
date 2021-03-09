@@ -1,4 +1,6 @@
 <?php
+require_once "vendor/autoload.php";
+use Symfony\Component\Yaml\Yaml;
 
 $string = array("url"=>"","format"=>"csv");
 $string['url']= "https://raw.githubusercontent.com/VolkanIsik86/drawcsv/master/test.csv";
@@ -14,9 +16,10 @@ $csvheader.="\n";
 $file = file_get_contents("process.xml");
 
 $yamlfile = file_get_contents("process.yaml");
+$iso = utf8_encode($yamlfile);
 
-$yaml =  yaml_parse($yamlfile);
-//print_r($yaml);
+$yaml =  Yaml::parse($iso);
+print_r($yaml);
 
 $xml = simplexml_load_string($file);
 
