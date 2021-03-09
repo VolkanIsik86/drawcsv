@@ -18,7 +18,7 @@ $file = file_get_contents("process.xml");
 $yamlfile = file_get_contents("process.yaml");
 $iso = utf8_encode($yamlfile);
 
-$yaml =  Yaml::parse($iso);
+$yaml =  yaml_parse($iso);
 print_r($yaml);
 
 $xml = simplexml_load_string($file);
