@@ -22,7 +22,7 @@ $yaml = Yaml::parse($iso);
 
 $step = $yaml['processtask'];
 
-$symTabel = array();
+echo $step[18]['config']['process'];
 
 for ($i = 0; sizeof($step) > $i; $i++) {
     $csvheader .= $step[$i]["stepnr"] . "," . $step[$i]["name"];
